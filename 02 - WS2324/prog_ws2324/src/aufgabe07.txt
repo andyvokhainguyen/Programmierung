@@ -1,0 +1,20 @@
+"""
+Aufgabe 7 - Klausur Prog
+
+Author:
+Vorname Nachname
+
+Matrikelnummer:
+999.999
+"""
+
+Typischer Verwendungszweck der Programmiersprachen (je ca. ein Satz):
+
+Kotlin   - moderne Programmiersprache zur Entwicklung von Android-Apps.
+Erlang   - Sprache fuer hochverfuegbare, massiv nebenlaeufige und verteilte
+           Echtzeitsysteme (z.B. Telekommunikation, Messaging).
+Swift    - Sprache von Apple zur Entwicklung von iOS-/macOS-Anwendungen.
+Selenium - Werkzeug/Framework zur Automatisierung und zum automatisierten
+           Testen von Webanwendungen im Browser.
+Ruby     - Skriptsprache fuer Webentwicklung (v.a. mit Ruby on Rails) und
+           zur Automatisierung von Aufgaben.

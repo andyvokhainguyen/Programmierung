@@ -1,0 +1,42 @@
+"""
+Aufgabe 1 - Klausur Programmierung WS2025/26
+
+Author:
+Vorname Nachname
+
+Matrikelnummer:
+999.999
+"""
+
+a) 4+1-Sichten nach Kruchten
+
+Die fuenf Sichten (vier Sichten + die verbindende "+1"-Szenariosicht) und die
+Zuordnung der Architekturaspekte:
+
+  Klassen und Objekte          -> Logische Sicht
+                                  (Domaenenaufteilung, Klassen, Funktionalitaet)
+  Akteure und Anwendungsfaelle -> Anwendungsfall-/Szenariosicht ("+1")
+                                  (Verhalten des Systems, verbindet die 4 Sichten)
+  Performanz und Skalierbarkeit-> Prozess-Sicht
+                                  (Prozesse/Threads, Verfuegbarkeit)
+  Hardware-Topologie           -> Physische Sicht
+                                  (Hardwareressourcen, Verteilung)
+  Dateien und Repositories     -> Entwicklungs-/Implementierungs-Sicht
+                                  (Dateien, Repositories, Konfiguration)
+
+
+b) Kosten der Betriebsphase
+
+(a) Prozentualer Anteil an den Gesamtkosten:
+    ca. 80 % der Gesamtkosten entfallen auf den Betrieb (Wartung).
+
+(b) Erlaeuterung:
+    Die Betriebsphase ist zeitlich die mit Abstand laengste Phase (oft
+    Jahre bis Jahrzehnte), waehrend die eigentliche Entwicklung nur einmalig
+    anfaellt. Ueber die Nutzungsdauer akkumulieren sich vier Wartungsarten:
+    - korrektiv: Fehlerbehebung
+    - adaptiv:   Anpassung an veraenderte Rahmenbedingungen
+    - perfektiv: Verbesserung bestehender Funktionen
+    - praeventiv: Verbesserung der Wartbarkeit
+    In Summe uebersteigen diese laufenden Kosten die einmaligen
+    Entwicklungskosten deutlich - daher der hohe Anteil von ~80 %.

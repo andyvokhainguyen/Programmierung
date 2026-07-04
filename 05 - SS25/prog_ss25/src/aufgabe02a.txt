@@ -1,0 +1,25 @@
+"""
+Aufgabe 2.1a - Klausur Programmierung
+Fuenf ueberschneidungsfreie Aequivalenzklassen (Black-Box) fuer
+finde_groesste_gerade_zahl(zahlenliste).
+Tests: prog_ss25/test/test_aufgabe02a.py
+"""
+
+Abgeleitet aus der Spezifikation ueber natuerliche Partitionen und
+Randbedingungen (leere Liste, negative Zahlen):
+
+  K1  Leere Liste                    []              -> "Keine gerade Zahl gefunden"
+      (Randfall: keine Elemente)
+  K2  Nur ungerade Zahlen            [1,3,5,7]       -> "Keine gerade Zahl gefunden"
+      (nicht leer, aber keine gerade Zahl -> String-Rueckgabe)
+  K3  Gemischt, positive gerade      [3,7,8,2,10,5]  -> 10
+      (Normalfall: Maximum unter mehreren Kandidaten)
+  K4  (Auch) negative gerade Zahlen  [-4,-2,-10,3]   -> -2
+      (Vorzeichen: groesste ist die "kleinste betragsmaessig" negative)
+  K5  Groesste gerade Zahl mehrfach  [4,8,8,2]       -> 8
+      (Duplikate duerfen Ergebnis nicht verfaelschen)
+
+Ueberschneidungsfrei, weil sich die Klassen in je einer Eigenschaft
+gegenseitig ausschliessen: Listengroesse (leer/nicht leer), Vorhandensein
+gerader Zahlen (keine/mind. eine), Vorzeichen (nur positiv/auch negativ),
+Eindeutigkeit des Maximums (einfach/mehrfach).

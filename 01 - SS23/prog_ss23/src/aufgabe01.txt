@@ -1,0 +1,34 @@
+"""
+Aufgabe 1 - Klausur Prog
+
+Author:
+Vorname Nachname
+
+Matrikelnummer:
+999.999
+"""
+
+1) Unterschied Programmierung vs. Software-Engineering (stichpunktartig)
+- Programmieren: reines Schreiben von Quellcode fuer eine konkrete, meist
+  kleine Aufgabe (Fokus: Algorithmus, Syntax, ein lauffaehiges Programm,
+  oft eine Person).
+- Software-Engineering: zielorientierte, systematische, arbeitsteilige und
+  ingenieurmaessige Entwicklung UMFANGREICHER Software-Systeme (nach Balzert).
+- Unterschiede: systematisches Vorgehen nach Phasenmodellen statt ad hoc;
+  Beherrschung von Komplexitaet durch Strukturierung/Modularisierung/Abstraktion;
+  gesamter Lebenszyklus inkl. Betrieb/Wartung (~80 % der Kosten); systematische
+  Qualitaetssicherung (Tests, Reviews, Dokumentation); Teamarbeit.
+
+2) Magisches Dreieck des Projektmanagements
+- Drei konkurrierende Dimensionen: ZEIT - KOSTEN - QUALITAET.
+- Die Aenderung einer Dimension wirkt sich zwangslaeufig auf die anderen aus.
+- Konkretes Beispiel: Ein Projekt soll frueher fertig werden (Zeit verkuerzen).
+  Folge: Entweder man stellt mehr Personal ein -> Kosten steigen, oder man
+  laesst Funktionen/Tests weg -> Qualitaet sinkt. Man kann nicht alle drei
+  gleichzeitig optimieren.
+
+3) Funktionale vs. nicht-funktionale Anforderungen (Multiple Choice)
+[X] Funktionale Anforderungen beschreiben, WAS ein System tun soll, waehrend
+    nicht-funktionale Anforderungen beschreiben, WIE GUT das System seine
+    Funktionen ausfuehren soll.
+(die anderen drei Aussagen sind falsch)

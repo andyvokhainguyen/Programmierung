@@ -1,0 +1,63 @@
+"""
+Aufgabe 1 - Klausur Prog
+
+Author:
+Vorname Nachname
+
+Matrikelnummer:
+999.999
+"""
+
+1) Vier Gruende fuer den Einsatz von Software-Engineering in groesseren Projekten
+- Komplexitaet: Beherrschung durch Strukturierung, Modularisierung, Abstraktion.
+- Qualitaet: Sicherheit, Robustheit, Testbarkeit systematisch sicherstellen.
+- Wartung: Dokumentation und langfristige Pflegbarkeit (Betrieb ~80 % der Kosten).
+- Planung/Organisation: Termine, Kosten, Personal, Risikomanagement, Teamarbeit
+  (Kommunikationsaufwand waechst quadratisch mit der Teamgroesse).
+
+2) Je drei Qualitaetsmerkmale
+Aus Benutzersicht:
+- Funktionserfuellung: geplanter Funktionsumfang ist realisiert.
+- Zuverlaessigkeit: stabil bei Fehlern/Ausfaellen (z.B. kein Datenverlust).
+- Benutzbarkeit: intuitiv bedienbar, geringe Einarbeitung.
+  (weitere: Effizienz, Sicherheit)
+Aus Entwicklersicht:
+- Wartbarkeit: uebersichtlicher Code, gute Doku.
+- Testbarkeit: isoliert testbare Komponenten (hohe Testabdeckung).
+- Uebertragbarkeit/Portabilitaet: auf andere Plattformen portierbar.
+  (weitere: Aenderbarkeit, Wiederverwendbarkeit)
+
+3) Unterschied Lastenheft vs. Pflichtenheft
+- Lastenheft (vom AUFTRAGGEBER): beschreibt das "Was" und "Wozu" - Zielbestimmung
+  und Zielgruppen, funktionale Anforderungen (Produktfunktionen, -daten,
+  -schnittstellen, Anwenderprofile), nichtfunktionale Anforderungen,
+  Lieferumfang und Abnahmekriterien. Die Anforderungen sind oft noch unscharf.
+- Pflichtenheft (vom AUFTRAGNEHMER): beschreibt das "Wie" - konkrete
+  Anwendungsfaelle/Ablaeufe (Use Cases), Akteure, systematische und priorisierte
+  Betrachtung der Qualitaetseigenschaften, Benutzungsschnittstelle (GUI-Skizzen,
+  Navigation) und ein Glossar. Es ist die praezise, umsetzungsnahe Antwort auf
+  das Lastenheft und bildet zusammen mit ihm die vertragliche Grundlage.
+
+4) Versteckte Anforderungen
+- Anforderungen, die der Kunde nicht explizit nennt, die sich aber aus dem
+  Kontext ergeben und trotzdem erfuellt werden muessen.
+- Man erkennt sie durch gezieltes Nachfragen/Analyse. Beispiele:
+  Einsatzort -> Wartungsart (Remote-Zugang noetig); Benutzungsfrequenz ->
+  Performanz (1000 gleichzeitige Nutzer); Folgen bei Ausfall -> Robustheit;
+  Anwenderprofil -> Internationalisierung (Mehrsprachigkeit);
+  Geschaeftsplanung -> Erweiterbarkeit (geplante Expansion).
+
+5) 4+1-Sichten nach Kruchten (die vier fehlenden Begriffe in der Grafik)
+Die Grafik zeigt vier aeussere Kaesten um "Scenarios" (die "+1"-Sicht) herum.
+Standardanordnung (oben links, oben rechts, unten links, unten rechts):
+
+  Oben links  : Logische Sicht (Logical View)
+      -> Klassen/Objekte, Verantwortlichkeiten, Kollaborationen; Funktionalitaet.
+  Oben rechts : Entwicklungs-/Implementierungssicht (Development View)
+      -> Dateien, Repositories, Module, Konfiguration (Organisation des Codes).
+  Unten links : Prozess-Sicht (Process View)
+      -> Prozesse/Threads; Performanz, Skalierbarkeit, Verfuegbarkeit.
+  Unten rechts: Physische Sicht (Physical/Deployment View)
+      -> Hardwareressourcen, Hardwaretopologie, Verteilung.
+  Mitte ("+1"): Szenario-/Anwendungsfallsicht (Scenarios)
+      -> Akteure und Anwendungsfaelle; verbindet/validiert die vier Sichten.

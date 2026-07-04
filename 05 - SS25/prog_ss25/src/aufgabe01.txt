@@ -1,0 +1,47 @@
+"""
+Aufgabe 1 - Klausur Programmierung
+
+Author:
+Vorname Nachname
+
+Matrikelnummer:
+999.999
+"""
+
+a) Softwaretechnik vs. einfaches Programmieren
+
+Programmieren = reines Schreiben von Quellcode fuer eine konkrete, meist
+kleine Aufgabe (Fokus: Algorithmus, Syntax, ein lauffaehiges Programm,
+oft eine Person).
+Softwaretechnik (Balzert) = "zielorientierte Bereitstellung und
+systematische Verwendung von Prinzipien, Methoden und Werkzeugen fuer die
+arbeitsteilige, ingenieurmaessige Entwicklung umfangreicher Software-Systeme".
+
+Wesentliche unterscheidende Merkmale (mind. zwei):
+  1. Systematisches Vorgehen: definierte Phasenmodelle (Wasserfall, V-Modell,
+     Scrum) statt ad-hoc-Coding.
+  2. Umgang mit Komplexitaet: Strukturierung, Modularisierung, Abstraktion
+     grosser Systeme im Team (arbeitsteilig, ingenieurmaessig = wiederholbar,
+     messbar, dokumentiert).
+  3. Gesamter Lebenszyklus inkl. Betrieb/Wartung (~80 % der Gesamtkosten),
+     nicht nur bis "Code laeuft".
+  4. Qualitaetssicherung: systematisches Testen, Reviews, Dokumentation.
+
+
+b) Scrum: Hauptrollen und Prozess
+
+Hauptrollen:
+  - Product Owner:   pflegt/priorisiert das Product Backlog, vertritt Kunde.
+  - Scrum Master:    Prozess-Coach, sorgt fuer Scrum-Einhaltung, beseitigt
+                     Hindernisse (Impediments).
+  - Entwicklungsteam: selbstorganisiert, cross-funktional (3-9 Personen),
+                     liefert das Inkrement.
+
+Zentrale Schritte (Scrum-Events):
+  1. Sprint Planning: Auswahl der Backlog-Items -> Sprint Backlog.
+  2. Sprint (2-4 Wochen): Umsetzung des Inkrements; taeglich Daily Scrum
+     (15 Min., Synchronisation).
+  3. Sprint Review: Praesentation des Inkrements, Feedback der Stakeholder.
+  4. Sprint Retrospektive: Reflexion, Prozessverbesserung.
+  -> danach beginnt der naechste Sprint.
+Artefakte: Product Backlog, Sprint Backlog, Produkt-Inkrement.

@@ -1,0 +1,23 @@
+"""
+Aufgabe 2.2 - White-Box-Test von schnittmenge(menge1, menge2)
+Tests: prog_ss25/test/test_aufgabe02b.py
+"""
+
+Die Funktion ist rekursiv mit drei Zweigen (if / elif / else). Fuer eine
+"path-complete" Pruefung sind laut Empfehlung fuer Rekursion die Faelle
+Basisfall / einmal rekursiv / mehrfach rekursiv abzudecken:
+
+  P1  Basisfall "if not menge1":
+      menge1 leer -> Rekursion terminiert, gibt [] zurueck.
+  P2  "elif menge1[0] in menge2" (Treffer):
+      erstes Element in menge2 -> wird uebernommen, Rekursion mit Rest.
+  P3  "else" (kein Treffer):
+      erstes Element nicht in menge2 -> verworfen, Rekursion mit Rest.
+  P4  Kombination ueber mehrere Rekursionsstufen (P2 und P3 abwechselnd):
+      prueft korrekte Verkettung ("+") und Erhalt der Reihenfolge von menge1.
+  P5  Randfall menge2 leer:
+      "elif" nie True -> jeder Aufruf laeuft ueber P3 bis P1 terminiert;
+      Ergebnis [].
+
+Reine Anweisungsueberdeckung (P2 + P3 je einmal) genuegt nicht: erst P4 und
+P5 sichern das korrekte Verhalten ueber mehrere Rekursionsebenen ab.

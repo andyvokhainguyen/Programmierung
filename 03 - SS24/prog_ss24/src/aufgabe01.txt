@@ -1,0 +1,67 @@
+"""
+Aufgabe 1 - Klausur Programmierung
+
+Author:
+Vorname Nachname
+
+Matrikelnummer:
+999.999
+"""
+
+1) Architektur von Stud.IP nach dem 4+1-Modell von Kruchten (exemplarisch)
+
+- Logische Sicht (Logical View):
+  Fachliche Struktur/Klassen und ihre Beziehungen. Beispiel Stud.IP: Klassen
+  wie Veranstaltung, Nutzer (Studierende/Dozierende), Anmeldung, Dateiordner,
+  Forum; Klassen- und Sequenzdiagramme fuer den Ablauf "Studierender meldet
+  sich zu einer Veranstaltung an".
+
+- Prozess-Sicht (Process View):
+  Nebenlaeufigkeit, Performanz, Skalierbarkeit, Verfuegbarkeit. Beispiel:
+  Wie werden gleichzeitige Zugriffe vieler Studierender zu Semesterbeginn
+  verarbeitet (Webserver-Prozesse/Threads, Lastverteilung, Antwortzeiten).
+
+- Entwicklungs-/Implementierungssicht (Development View):
+  Organisation des Quellcodes in Module/Dateien/Repositories. Beispiel:
+  Aufteilung in Module (Kernsystem, Plugins, Datenbankschicht), verwendete
+  Bibliotheken, Verzeichnisstruktur, Build-/Konfigurationsdateien.
+
+- Physische Sicht (Physical/Deployment View):
+  Hardwaretopologie und Verteilung. Beispiel: Web-Server, Applikations-Server
+  und Datenbank-Server, auf welche Knoten die Komponenten verteilt sind,
+  Netzwerkverbindungen.
+
+- Szenario-/Anwendungsfallsicht ("+1"):
+  Zentrale Anwendungsfaelle/Akteure, die die vier Sichten verbinden. Beispiel:
+  Use Cases "Anmelden", "Veranstaltung suchen und belegen", "Datei hochladen",
+  "Nachricht senden" - jeweils mit den beteiligten Akteuren.
+
+2) Magisches Dreieck: Einfluss auf die Projektplanung und Balancierungsstrategien
+
+- Das magische Dreieck umfasst ZEIT, KOSTEN und QUALITAET. Die Aenderung einer
+  Dimension beeinflusst zwangslaeufig die anderen -> jede Planungsentscheidung
+  ist ein Kompromiss/Trade-off (z.B. schnellere Lieferung -> mehr Kosten oder
+  weniger Qualitaet).
+- Strategien zum Balancieren:
+  * Prioritaeten festlegen: bewusst entscheiden, welche Dimension fixiert und
+    welche flexibel ist (z.B. "Qualitaet und Termin fix, Budget flexibel").
+  * Scope-Management: Funktionsumfang anpassen (weniger Features -> Zeit/Kosten
+    sinken bei gleichbleibender Qualitaet der Kernfunktionen).
+  * Agiles Vorgehen: in Sprints priorisieren, regelmaessiges Feedback, um
+    fruehzeitig gegenzusteuern.
+  * Puffer/Risikomanagement einplanen (realistische Bottom-Up-Schaetzung).
+
+3) Softwarequalitaet und vier Qualitaetsmerkmale
+
+- Softwarequalitaet = Gesamtheit der Eigenschaften/Merkmale einer Software, die
+  sich auf ihre Eignung beziehen, festgelegte und vorausgesetzte Anforderungen
+  (funktional und nicht-funktional) zu erfuellen. Man unterscheidet Merkmale
+  aus Benutzer- und aus Entwicklersicht.
+- Vier Beispiele:
+  * Funktionserfuellung: der geplante Funktionsumfang ist realisiert.
+  * Zuverlaessigkeit: das System bleibt bei Fehlern/Ausfaellen stabil
+    (z.B. kein Datenverlust).
+  * Benutzbarkeit: intuitiv bedienbar, geringe Einarbeitungszeit.
+  * Wartbarkeit: uebersichtlicher, gut dokumentierter Code, leicht aenderbar/
+    testbar. (weitere: Effizienz, Sicherheit, Uebertragbarkeit,
+    Wiederverwendbarkeit)

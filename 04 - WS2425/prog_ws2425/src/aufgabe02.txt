@@ -1,0 +1,36 @@
+"""
+Aufgabe 2 (Theorieteile 1 und 2) - Klausur Programmierung
+(White-Box-Pfade zu Teil 3 und 4 sowie die pytest-Tests: siehe
+ prog_ws2425/test/test_aufgabe02.py)
+
+Author:
+Vorname Nachname
+
+Matrikelnummer:
+999.999
+"""
+
+1) "Path-complete" und die zugehoerige Testkategorie
+- "Path-complete" bedeutet, dass jeder moegliche Pfad im Code mindestens einmal
+  durchlaufen/geprueft wird (vollstaendige Pfadueberdeckung).
+- Dies spielt beim WHITE-BOX-Testen eine Rolle: dort wird der Programmpfad
+  DURCH den Code (mit Kenntnis der Implementierung) exploriert.
+- Empfehlungen zum Erreichen: alle Verzweigungen pruefen; Schleifen gar nicht/
+  genau einmal/mehrfach; Rekursion Basisfall/einmal/mehrfach.
+- Hinweis: "path-complete" allein garantiert keine Fehlerfreiheit - manchmal
+  muessen zusaetzlich Randwerte getestet werden.
+
+2) Defensive Programmierung: Beitrag zur Softwarequalitaet + typische Massnahmen
+- Beitrag: Fehler werden frueh erkannt bzw. von vornherein vermieden; der Code
+  wird robuster, zuverlaessiger und leichter zu testen/warten. Fehlerquellen
+  werden reduziert und Fehler eingegrenzt (statt tief im Code unkontrolliert
+  zu scheitern, wird sofort/kontrolliert abgebrochen).
+- Typische Massnahmen:
+  * Formulieren KLARER Spezifikationen fuer Funktionen (Docstrings mit
+    Rand-/Vorbedingungen: wie sieht Input/Output aus?).
+  * Systematische Modularisierung des Codes (kleine, isoliert testbare Module).
+  * Pruefung von Bedingungen ueber ASSERTIONS am Anfang kritischer Funktionen
+    (Typpruefung der Argumente, Pruefung auf Violations wie Duplikate,
+    Constraints bzgl. Rueckgaben). Eine verletzte Assertion wirft sofort einen
+    AssertionError und terminiert die Funktion.
+  * Bewusste Behandlung von Ausnahmen (try/except) fuer erwartbare Fehlerfaelle.

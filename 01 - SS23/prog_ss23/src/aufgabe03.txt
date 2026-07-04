@@ -1,0 +1,45 @@
+"""
+Aufgabe 3 - Klausur Prog
+
+Author:
+Vorname Nachname
+
+Matrikelnummer:
+999.999
+"""
+
+1) Grundlegender Unterschied Wasserfallmodell vs. V-Modell (stichpunktartig)
+- Wasserfallmodell: rein sequenzielle Phasen (Royce, 1970); getestet wird erst
+  am Ende -> Fehler werden spaet entdeckt.
+- V-Modell: ordnet JEDER Entwicklungsphase direkt eine Teststufe zu
+  (Anforderungsanalyse<->Abnahmetest, Systemspezifikation<->Systemtest,
+  Architektur<->Integrationstest, Detailentwurf<->Modultest).
+- Kernunterschied: Das V-Modell verzahnt Entwicklung und Test (Qualitaets-
+  sicherung von Anfang an, jede Phase hat ein Testpendant), das Wasserfallmodell
+  testet erst nach der Realisierung.
+
+2) Empfehlung Wasserfall- oder V-Modell (je 1 Satz Begruendung)
+
+Einfaches mobiles Spiel, Startup, Anforderungen gut definiert, keine Aenderungen
+  -> WASSERFALLMODELL: stabile, klare Anforderungen und geringes Risiko, daher
+     genuegt das einfache sequenzielle Modell.
+
+Kritisches Flugsicherheitssystem, hoechste Sicherheit, ausgiebig testen,
+Aenderungen wahrscheinlich
+  -> V-MODELL: sicherheitskritisch, daher ist die durchgaengige, phasenweise
+     Testverzahnung (Verifikation/Validierung auf jeder Ebene) zwingend.
+
+Medizinische Softwareloesung, hoechste Genauigkeit/Zuverlaessigkeit, enge
+Zusammenarbeit zur Validierung der Anforderungen
+  -> V-MODELL: hohe Zuverlaessigkeitsanforderungen und explizite Validierung der
+     Anforderungen sprechen fuer das testintensive V-Modell.
+
+Neues Betriebssystem fuer Mobiltelefone, innovativ, komplexe Architektur,
+viele Abteilungen/Experten
+  -> V-MODELL: hohe Komplexitaet und viele Beteiligte erfordern die strukturierte
+     Integrations- und Systemtestverzahnung des V-Modells.
+
+Drucker fuer Technologieunternehmen, Anforderungen gut definiert, keine
+Aenderungen, kleines erfahrenes Team
+  -> WASSERFALLMODELL: stabile, klar definierte Anforderungen und kleines Team
+     -> das einfache sequenzielle Modell reicht aus.

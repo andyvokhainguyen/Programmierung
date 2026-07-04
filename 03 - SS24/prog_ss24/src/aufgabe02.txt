@@ -1,0 +1,36 @@
+"""
+Aufgabe 2 (Theorieteile 1 und 2) - Klausur Programmierung
+(Pfadanalysen zu Teil 3 und 4 sowie die pytest-Tests: siehe
+ prog_ss24/test/test_aufgabe02.py)
+
+Author:
+Vorname Nachname
+
+Matrikelnummer:
+999.999
+"""
+
+1) Testpyramide (Ebenen, stichwortartig)
+- Unit Tests (unten, viele, schnell): Testen einzelner Funktionen und Module
+  isoliert. Bilden die breite Basis der Pyramide.
+- Integrationstests (Mitte): Pruefen das Zusammenspiel mehrerer Module/
+  Komponenten (Schnittstellen).
+- Systemtests / E2E-Tests (oben, wenige, aufwaendig): Pruefen, dass das
+  gesamte Programm/System gegen die Spezifikation funktioniert.
+- (Regressionstests laufen begleitend: sicherstellen, dass durch Aenderungen
+  keine neuen Fehler entstehen.)
+- Idee: viele schnelle Unit Tests unten, wenige aufwaendige E2E-Tests oben.
+  Testabdeckung > 80 % ist ein guter Indikator, garantiert aber keine
+  Fehlerfreiheit.
+
+2) Black-Box- vs. White-Box-Tests (Abgrenzung)
+- Black-Box-Test: Testentwurf OHNE Kenntnis des Codes, nur auf Basis der
+  SPEZIFIKATION. Die Interna sind irrelevant (Tester != Entwickler). Typisch:
+  Ableitung natuerlicher Partitionen (Aequivalenzklassen) und Testen von
+  Randbedingungen (leere Listen, sehr grosse/kleine/negative Zahlen).
+- White-Box-Test: Testentwurf MIT Kenntnis des Codes; man exploriert die
+  Programmpfade DURCH den Code ("path-complete", wenn jeder Pfad mindestens
+  einmal geprueft wird). Empfehlungen: alle Verzweigungen pruefen; Schleifen
+  gar nicht/einmal/mehrfach; Rekursion Basisfall/einmal/mehrfach.
+- Kernunterschied: Black-Box prueft gegen das WAS (Spezifikation, ohne Code),
+  White-Box gegen das WIE (interne Struktur, mit Code).

@@ -1,0 +1,67 @@
+"""
+Aufgabe 1 - Klausur Programmierung
+
+Author:
+Vorname Nachname
+
+Matrikelnummer:
+999.999
+"""
+
+1) Fuenf zentrale Stakeholder-Gruppen und ihre Beziehungen
+(nach dem Modell "Software Engineering im Projekt" der Vorlesung)
+
+  - Kunde / Auftraggeber
+  - Marketing
+  - Manager (Controlling, Projektleitung)  <- zentrale Rolle
+  - Qualitaetssicherung
+  - SW-Entwicklung
+
+Beziehungen (der Manager steht im Zentrum und koordiniert alle anderen):
+  - Kunde <-> Manager:
+      Kunde liefert Anforderungen/Qualitaeten; Manager liefert Termine,
+      Kosten und das fertige Produkt zurueck.
+  - Marketing <-> Manager:
+      Marketing liefert Marktanforderungen und Geschaeftsziele an den Manager.
+  - Manager <-> SW-Entwicklung:
+      Manager gibt Anforderungen/Qualitaeten und Planung vor; die Entwicklung
+      meldet Status zurueck.
+  - Manager <-> Qualitaetssicherung:
+      QS meldet den Qualitaets-Status an den Manager.
+  - SW-Entwicklung <-> Qualitaetssicherung:
+      Durchfuehrung von (Qualitaets-)Massnahmen im direkten Zusammenspiel.
+
+Skizze (vereinfacht):
+                 Kunde                Marketing
+                    \                   /
+                     \                 /
+   Qualitaets-  ---   MANAGER (Zentrum)  --- SW-Entwicklung
+   sicherung          (Controlling,          |
+        \_____________ Projektleitung) ______/
+                (Durchfuehrung von Massnahmen)
+
+2) Bewertung der Vorgaben mit dem Magischen Dreieck
+- Das Magische Dreieck spannt ZEIT, KOSTEN und QUALITAET auf; eine Aenderung
+  einer Dimension beeinflusst zwangslaeufig die anderen.
+- Hier werden ALLE drei Dimensionen gleichzeitig fixiert und maximal gefordert:
+  Zeit sehr knapp (6 Monate), Kosten gedeckelt (max. 500.000 EUR) und
+  gleichzeitig hoechste Qualitaet. Das ist der klassische Zielkonflikt -
+  alle drei Ecken zu maximieren ist praktisch nicht moeglich.
+- Auswirkungen/Konsequenzen: Bei fixem Budget und fixer Zeit muss realistisch
+  die Qualitaet oder der Funktionsumfang (Scope) reduziert werden; sonst drohen
+  Termin-/Budgetueberschreitung, Qualitaetsmaengel oder Ueberlastung des Teams
+  (Brooks: mehr Personal macht ein spaetes Projekt noch spaeter).
+- Empfehlung: Prioritaeten klaeren (welche Dimension ist wirklich fix?), Scope
+  reduzieren/priorisieren (MVP), agil vorgehen und Puffer einplanen.
+
+3) Cloud-Plattform fuer algorithmischen Hochfrequenzhandel
+Drei funktionale Anforderungen (WAS):
+  - Echtzeit-Analyse eingehender Finanzmarktdaten (Datenstroeme verarbeiten).
+  - Automatisierte Handelsentscheidungen anhand definierter Algorithmen/Regeln.
+  - Ausfuehren von Kauf-/Verkaufstransaktionen und Protokollierung.
+Drei nicht-funktionale Anforderungen (WIE GUT):
+  - Performanz/Effizienz: Transaktionen im Millisekundenbereich (geringe Latenz).
+  - Zuverlaessigkeit/Verfuegbarkeit: hohe Ausfallsicherheit, kein Datenverlust
+    (Handel darf nicht ausfallen).
+  - Skalierbarkeit: mit steigendem Datenvolumen/Nutzerlast mitwachsen
+    (Cloud-Skalierung). (weitere: Sicherheit, da Finanzdaten schuetzenswert.)

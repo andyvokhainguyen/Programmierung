@@ -1,0 +1,40 @@
+"""
+Aufgabe 2 - Klausur Prog
+
+Author:
+Vorname Nachname
+
+Matrikelnummer:
+999.999
+"""
+
+Ergaenzung der vier fehlenden Begriffe im Phasenzyklus
+(Zyklus: Einfuehrung/Betrieb -> 1 -> Definition -> 2 -> Design -> 3 ->
+Modultest -> 4 -> Systemtest -> Abnahme -> Einfuehrung/Betrieb)
+
+Begriff 1: Analyse
+- Aufgabe: Anwendungsgebiet verstehen, Ist-Ablauf aufnehmen, begreifen was der
+  Kunde wirklich will, Schwachstellen analysieren ("Was will der Kunde?").
+- Ergebnis: Anforderungsdokumentation.
+
+Begriff 2: Architektur (Grobentwurf)
+- Aufgabe: IT-Loesung auf hoher Abstraktionsebene festlegen, Systembestandteile
+  und Schnittstellen sowie grundlegende Umsetzungsart bestimmen ("Wie grob?").
+- Ergebnis: Komponentenstruktur.
+
+Begriff 3: Implementierung
+- Aufgabe: den im Design festgelegten Feinentwurf in Quellcode umsetzen und die
+  einzelnen Bausteine programmieren ("Funktioniert der Code?").
+- Ergebnis: Code + Unit Tests.
+
+Begriff 4: Integration
+- Aufgabe: die einzeln getesteten Module zu einem Gesamtsystem zusammenfuegen
+  und ihr Zusammenspiel pruefen ("Funktioniert alles zusammen?").
+- Ergebnis: getestetes/integriertes Gesamtsystem.
+
+(Zur Einordnung der bereits vorgegebenen Phasen:
+ Definition -> Spezifikation + Abnahmekriterien ("Was soll das System tun?");
+ Design -> Klassen/Schnittstellen im Detail ("Wie im Detail?");
+ Modultest -> getestete Einzelmodule; Systemtest -> Gesamtsystem vs. Spezifikation;
+ Abnahme -> Abnahmeprotokoll; Einfuehrung/Betrieb -> produktives System +
+ Wartungsdokumentation.)

@@ -1,0 +1,22 @@
+"""
+Aufgabe 9 - Klausur Prog
+
+Author:
+Vorname Nachname
+
+Matrikelnummer:
+999.999
+"""
+
+Zuordnung Programmieraufgabe -> geeignetste Programmiersprache
+
+Entwicklung einer iOS-App                          -> Swift
+Erstellung einer Website mit interaktiven Funktionen -> JavaScript
+Entwicklung einer Android-App                      -> Kotlin
+Skripte zur Automatisierung auf einem Webserver    -> Ruby
+Massiv paralleles, numerisches Berechnungsprogramm -> Julia
+Content-Management-System fuer einen Blog          -> WordPress
+System zur Verarbeitung/Verteilung von Echtzeit-Nachrichten -> Erlang
+Windows-Desktop-Anwendung                          -> Visual Basic
+Webanwendung mit Backend-Server und Datenbankzugriff -> Java
+Server-Backends mit hoher Netzwerkleistung         -> Golang

@@ -1,0 +1,62 @@
+"""
+Aufgabe 2 - Klausur Programmierung WS2025/26
+Teilaufgaben a-d (schriftlich). Teil e: siehe aufgabe02a.py (Assertions)
+und test/test_aufgabe02.py (pytest).
+"""
+
+a) Black-Box-Testentwurf (natuerliche Partitionen + Randbedingungen)
+
+  #  values           limit  erwartetes Ergebnis   deckt ab
+  1  []               5      []                    leere Liste (Randfall)
+  2  [-1, -2]         5      []                    nur negative -> alles verworfen
+  3  [1, 2, 3]        10     [[1, 2, 3]]           Normalfall, 1 Paket
+  4  [3, 4]           5      [[3], [4]]            Paketwechsel (3+4 > 5)
+  5  [5]              5      [[5]]                 GRENZWERT: Summe == limit
+  6  [1, 2]           0      Exception             GRENZWERT: limit == 0
+  7  [1, 2]          -5      Exception             Extremwert: limit stark negativ
+  8  [2.5, 3.5]       100    [[2, 4]]              Rundung (round: 2.5->2, 3.5->4)
+
+Faelle 5-7 sind die geforderten Extrem-/Grenzwerttests (untere Grenze von
+limit, exakte Grenze der Paketsumme).
+
+
+b) Aequivalenzklassen und Grenzwerte
+
+  values: V1 leer | V2 nur negativ | V3 gemischt | V4 mit Nachkommastellen
+          | V5 Summe erreicht exakt limit
+  limit:  L1 < 0 (ungueltig) | L2 == 0 (ungueltig, Grenzfall) | L3 klein > 0
+          | L4 gross > 0
+
+  Grenzwerttests (>= 3 Klassen):
+    V1: values=[]           -> []
+    V5: values=[5], limit=5 -> [[5]]
+    L2: limit=0             -> Exception
+
+
+c) White-Box-Analyse: Abweichungen von der Spezifikation
+
+  1. limit-Grenze falsch: Spec verlangt Exception fuer "limit <= 0", Code
+     prueft nur "limit < 0" -> bei limit == 0 keine Exception (Grenzwertfehler).
+  2. Vergleichsoperator "<" statt "<=": Spec erlaubt Paketsumme "<= limit",
+     Code bricht schon bei "== limit" ab -> Wert wird faelschlich in neues
+     Paket gelegt (siehe Testfall [5], 5).
+  3. Leeres Erst-Paket: packs startet als [[]]. Passt der erste Wert nicht in
+     das leere Paket (Wert >= limit), entsteht ueber else ein neues Paket, das
+     leere Anfangspaket bleibt: [5],5 -> [[], [5]] statt [[5]].
+
+  Bezug Zweig-/Pfadueberdeckung: Reine Anweisungsueberdeckung durchlaeuft
+  nicht den Pfad "erstes Element trifft auf leeres, nicht befuellbares Paket".
+  Nur ein gezielter Testfall (erster Wert >= limit) deckt Fehler 3 auf ->
+  Zweigueberdeckung noetig, nicht nur jede Zeile einmal ausfuehren.
+
+
+d) Minimale White-Box-Testfaelle (Zweige + Schleifen 0/1/mehrfach)
+
+  TC1 []       ,5  : for-Schleifen 0 Durchlaeufe; packs==[[]] True-Zweig
+  TC2 [-1]     ,5  : Schleife 1x, "v>=0" False (verworfen)
+  TC3 [3]      ,5  : Schleife 1x, "v>=0" True; Pack-Bedingung True; packs!=[[]]
+  TC4 [3,4]    ,5  : Schleife mehrfach; Pack-Bedingung True UND False (neues Paket)
+  TC5 [1,2]   ,-1  : "limit<0" True-Zweig (Exception, keine Schleife erreicht)
+
+  Deckt alle Verzweigungen (limit<0, v>=0, Paketbedingung, packs==[[]]) sowie
+  beide Schleifen mit 0/1/mehrfachem Durchlauf ab.
