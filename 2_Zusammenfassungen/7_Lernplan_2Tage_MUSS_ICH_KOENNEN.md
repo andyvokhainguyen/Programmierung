@@ -1,6 +1,6 @@
 # 🎯 2-Tage-Lernplan: Diese Codes MUSST du können
 
-Jeder Code hat eine **Eselsbrücke** (die Idee in einem Satz), **Zeilen-Erklärungen** und **typische Fehler**. Lerne nicht die Zeichen auswendig, sondern die **Idee** – dann kannst du den Code jederzeit neu herleiten.
+Jeder Code ist **originalgetreu aus Skript bzw. Altklausur** übernommen (gleiche Struktur, gleiche Variablennamen) – du lernst also exakt die Form, die der Prof verwendet und erwartet. Dazu: **Eselsbrücke** (die Idee in einem Satz), Erklärungen und typische Fehler.
 **Tempo-Regel bei 2 Tagen:** Was du schon sicher kannst, hakst du per Schnelltest ab (einmal fehlerfrei aus dem Kopf schreiben = fertig, weiter) – die volle Lernschleife nur für Unsicheres.
 
 **So lernst du jeden unsicheren Code (4 Schritte):**
@@ -27,28 +27,35 @@ Empfehlung Tag 2 nachmittags: `5_Probeklausur/2_Probeklausur` (getopt + Liste + 
 
 # TAG 1 (Vormittag) – Datei, Kommandozeile, Testen
 
-## CODE 1: Datei lesen & schreiben
-**Eselsbrücke:** *„with open – r zum Lesen, w zum Schreiben, für jede Zeile strip."*
+## CODE 1: Datei lesen & schreiben *(Quelle: Skript 04 + Altklausuren)*
+**Eselsbrücke:** *„open – lesen/schreiben – close. Oder with, dann schließt es sich selbst."*
 
 ```python
-# LESEN – Zeile für Zeile
-with open("daten.txt", "r", encoding="utf-8") as f:
-    for zeile in f:                # gibt jede Zeile MIT \n am Ende
-        zeile = zeile.strip()      # \n und Leerzeichen entfernen
-        if zeile == "":            # leere Zeilen überspringen
-            continue
-        print(zeile)
+# Skript-Form (Skript 04):
+f = open("morgenstern.txt", "r")
+print(f.read())                    # gesamter Inhalt; f.readline() = eine Zeile
+f.close()
 
-# SCHREIBEN
-with open("ergebnis.txt", "w", encoding="utf-8") as f:
-    f.write("Erste Zeile\n")       # \n selbst anhängen!
+f = open("meinWitz.txt", "w")
+f.write("Treffen sich zwei Jäger.\nBeide tot.")   # \n selbst anhängen!
+f.close()
+
+# Altklausur-Form (SS23-WS2526) - zeilenweise mit with:
+with open("log.txt", "r", encoding="utf-8") as datei:
+    for zeile in datei:            # jede Zeile MIT \n am Ende
+        if zeile.strip() == "":    # leere Zeilen überspringen (SS25-Stil)
+            continue
+        print(zeile.strip())
+
+with open("ergebnis.txt", "w", encoding="utf-8") as datei:
+    datei.write("Erste Zeile\n")
 ```
-**Warum so?** `with` schließt die Datei automatisch (kein `close()` nötig). `"r"` = read, `"w"` = write (überschreibt!), `"a"` = anhängen.
+**Merke:** `"r"` = lesen, `"w"` = schreiben (überschreibt!), `"a"` = anhängen. `with` schließt automatisch (kein `close()` nötig) – so machen es alle Klausurlösungen ab SS23.
 **Typische Fehler:** `\n` beim Schreiben vergessen · `strip()` vergessen (dann hängt `\n` an jedem Wort).
 
 ---
 
-## CODE 2: getopt-Gerüst (WICHTIGSTER CODE! steht so ähnlich in JEDER Klausur)
+## CODE 2: getopt-Gerüst *(Quelle: Altklausuren SS24 + WS2425, Original-Struktur)*
 **Eselsbrücke:** *„try getopt – for opt – if fehlt: Fehler"* (3 Abschnitte: parsen, zuordnen, prüfen)
 
 ```python
@@ -67,13 +74,13 @@ def main(argv):
         opts, args = getopt.getopt(argv, "i:o:b:h",
                                    ["input=", "output=", "befehl=", "help"])
     except getopt.GetoptError:                      # unbekannte Option
-        print("prog.py -i <in> -o <out> -b <befehl>")
+        print("prog.py -i <inputfile> -o <outputfile> -b <befehl>")
         sys.exit(2)
 
     # 3) ZUORDNEN: jedes (Flag, Wert)-Paar in die richtige Variable
     for opt, arg in opts:
         if opt in ("-h", "--help"):
-            print("prog.py -i <in> -o <out> -b <befehl>")
+            print("prog.py -i <inputfile> -o <outputfile> -b <befehl>")
             sys.exit()
         elif opt in ("-i", "--input"):
             inputfile = arg
@@ -82,9 +89,9 @@ def main(argv):
         elif opt in ("-b", "--befehl"):
             befehl = arg
 
-    # 4) PRÜFEN: getopt kennt kein "required" -> selbst checken
+    # 4) PRÜFEN: getopt kennt kein "required" -> selbst checken (WS2425-Stil)
     if inputfile == "" or outputfile == "" or befehl == "":
-        print("Fehler: -i, -o und -b sind erforderlich.")
+        print("Fehler: Es fehlen Argumente. Erforderlich: -i, -o, -b")
         sys.exit(2)
 
     # 5) ... hier die eigentliche Arbeit (Code 3) ...
@@ -93,23 +100,23 @@ def main(argv):
 if __name__ == "__main__":
     main(sys.argv[1:])        # [1:] = ohne den Skriptnamen!
 ```
-**Merke die Magie-Zeichen:** kurzes Flag mit Wert = **Doppelpunkt** (`"i:"`), langes Flag mit Wert = **Gleichheitszeichen** (`"input="`).
-**Typische Fehler:** `sys.argv[1:]` vergessen (dann ist der Skriptname das erste „Argument") · Doppelpunkte vergessen · `opts, args =` (es kommen ZWEI Rückgaben).
+**Merke die Magie-Zeichen:** kurzes Flag mit Wert = **Doppelpunkt** (`"i:"`), langes Flag mit Wert = **Gleichheitszeichen** (`"input="`). Genau so auf dem Hilfsmittelblatt: `getopt.getopt(args, shortopts, longopts)`.
+**Typische Fehler:** `sys.argv[1:]` vergessen · Doppelpunkte vergessen · `opts, args =` (es kommen ZWEI Rückgaben).
 
 ---
 
-## CODE 3: Logdatei auswerten (das SS25/WS2526-Herzstück)
-**Eselsbrücke:** *„split, zählen im dict, max mit key."*
+## CODE 3: Logdatei auswerten *(Quelle: SS25 + WS2526, die letzten beiden Klausuren!)*
+**Eselsbrücke:** *„split, im dict zählen, ausgeben."*
 
 ```python
-def werte_aus(pfad, befehl):
-    zaehler = {}                                   # leeres Zähl-Dictionary
-    with open(pfad, "r", encoding="utf-8") as f:
-        for zeile in f:
+def werte_logdatei_aus(pfad, befehl):
+    zaehler = {}                                   # Zähl-Dictionary
+    with open(pfad, "r", encoding="utf-8") as datei:
+        for zeile in datei:
             teile = zeile.strip().split(";")       # "2025-05-10 ...;INFO;alice;login"
             if len(teile) != 4:                    # kaputte/leere Zeile überspringen
                 continue
-            _zeit, level, user, action = teile     # auspacken (4 Variablen!)
+            _zeitstempel, level, user, action = teile   # auspacken (4 Variablen!)
 
             if befehl == "level":
                 schluessel = level
@@ -118,32 +125,51 @@ def werte_aus(pfad, befehl):
             else:
                 schluessel = action
 
-            # zählen: get(x, 0) liefert 0, wenn Schlüssel noch nicht existiert
-            zaehler[schluessel] = zaehler.get(schluessel, 0) + 1
+            # Zählen im Dictionary (Form wie in der Blatt-0-Musterlösung):
+            if schluessel in zaehler:
+                zaehler[schluessel] += 1
+            else:
+                zaehler[schluessel] = 1
     return zaehler
 
 
 def schreibe_ergebnis(pfad, befehl, zaehler):
-    with open(pfad, "w", encoding="utf-8") as f:
-        f.write(f"Befehl: {befehl}\n")
+    with open(pfad, "w", encoding="utf-8") as datei:
+        datei.write(f"Befehl: {befehl}\n")
         for schluessel, anzahl in zaehler.items():
-            f.write(f"{schluessel}: {anzahl}\n")
+            datei.write(f"{schluessel}: {anzahl}\n")
 ```
-**Bonus (NICHT auf dem Hilfsmittelblatt → merken!):**
+**Einfachere SS25-Variante** (nur zählen, wenn ein Wort in der Zeile steht):
+```python
+def zaehle(pfad, befehl):
+    anzahl = 0
+    with open(pfad, "r", encoding="utf-8") as datei:
+        for zeile in datei:
+            if zeile.strip() == "":
+                continue
+            if befehl == "count":
+                anzahl += 1
+            elif befehl == "errors":
+                if "ERROR" in zeile:
+                    anzahl += 1
+    return anzahl
+```
+**Häufigstes Wort/Element** (stand auf dem alten Hilfsmittelblatt, auf dem neuen NICHT mehr → merken!):
 ```python
 haeufigstes = max(zaehler, key=zaehler.get)    # Schlüssel mit größtem Wert
 ```
-**Typische Fehler:** vergessen, dass `split(";")` eine **Liste** liefert · `.items()` beim Iterieren über dict-Paare vergessen.
+**Typische Fehler:** `split(";")` liefert eine **Liste** · `.items()` beim Iterieren über dict-Paare vergessen.
 
 ---
 
-## CODE 4: pytest + Testfälle finden
+## CODE 4: pytest + Testfälle finden *(Quelle: Altklausur-Testdateien, Original-Form)*
 **Eselsbrücke:** *„from src import – def test_ – assert."* Und für die Fälle: *„Grenzen, leer, normal."*
 
 ```python
 from src import aufgabe02        # Datei aufgabe02.py im Ordner src/
 
 import pytest
+
 
 def test_normalfall():
     assert aufgabe02.note(80) == 1
@@ -163,76 +189,84 @@ def test_ungueltig():
 | Schleife (White-Box) | 0× / 1× / mehrfach durchlaufen |
 | Rekursion (White-Box) | Basisfall / 1× rekursiv / mehrfach rekursiv |
 
-**Assertions in Funktionen prüfen (WS2526-Stil, merken):**
+**Assertions prüfen (WS2526-Klausur, Aufgabe 2e):**
 ```python
-def funktion(werte, limit):
-    assert isinstance(limit, int), "limit muss int sein"
-# und im Test:
-with pytest.raises(AssertionError):
-    funktion([1], "zehn")
+# In der Funktion (WS2526-Original):
+assert type(values) == list
+assert isinstance(limit, int), "limit muss eine ganze Zahl sein"
+
+# Im Test prüfen, dass die Assertion anschlägt:
+def test_falscher_typ():
+    with pytest.raises(AssertionError):
+        aufgabe02a.normalize_and_pack([1, 2], 10.5)
 ```
 
 ---
 
 # TAG 1 (Nachmittag + Abend) – Datenstrukturen & naive Sortierverfahren
 
-## CODE 5: Stack & Queue (heißer Kandidat – kam noch NIE dran!)
+## CODE 5: Stack & Queue *(Quelle: Skript 05, Original-Form + WS2324-Erweiterung)*
 **Eselsbrücke:** *„Beide sind eine Liste. Stack nimmt hinten (Stapel Teller), Queue nimmt vorne (Warteschlange Kasse)."*
 
 ```python
-class Stack:                          # LIFO - Last In, First Out
+# Skript-Form (Skript 05):
+class Stack:
     def __init__(self):
         self.stack = []
 
-    def push(self, item):             # drauflegen
+    # Add an element
+    def push(self, item):
         self.stack.append(item)
 
-    def pop(self):                    # OBERSTES nehmen = hinten
-        if self.is_empty():
+    # Remove an element
+    def pop(self):
+        if len(self.stack) < 1:
             return None
-        return self.stack.pop()       # pop() ohne Zahl = letztes Element
+        removed_item = self.stack[-1]      # oberstes = letztes Element
+        del self.stack[-1]
+        return removed_item
 
-    def peek(self):                   # nur angucken
-        if self.is_empty():
-            return None
-        return self.stack[-1]
-
-    def is_empty(self):
-        return len(self.stack) == 0
-
-    def size(self):
-        return len(self.stack)
+    # Display the stack
+    def display(self):
+        print(self.stack)
 
 
-class Queue:                          # FIFO - First In, First Out
+class Queue:
     def __init__(self):
         self.queue = []
 
-    def enqueue(self, item):          # hinten anstellen
+    # Add an element
+    def enqueue(self, item):
         self.queue.append(item)
 
-    def dequeue(self):                # VORDERSTES nehmen = vorne!
-        if self.is_empty():
+    # Remove an element
+    def dequeue(self):
+        if len(self.queue) < 1:
             return None
-        return self.queue.pop(0)      # pop(0) = erstes Element  <<< DER Unterschied!
+        return self.queue.pop(0)           # vorderstes Element!  <<< DER Unterschied
 
+    # Display the queue
+    def display(self):
+        print(self.queue)
+```
+**Erweiterung aus der WS2324-Klausur** (dort für den Stack gefordert – für die Queue analog):
+```python
     def peek(self):
+        """Gibt das oberste Element zurück, ohne es zu entfernen."""
         if self.is_empty():
             return None
-        return self.queue[0]          # vorne angucken
+        return self.stack[-1]              # bei Queue: self.queue[0]
 
     def is_empty(self):
-        return len(self.queue) == 0
-
-    def size(self):
-        return len(self.queue)
+        """Gibt True zurück, wenn der Stack leer ist, sonst False."""
+        return len(self.stack) == 0
 ```
-**DER eine Unterschied:** Stack = `pop()` / `[-1]` (hinten) · Queue = `pop(0)` / `[0]` (vorne). Alles andere ist identisch!
+**DER eine Unterschied:** Stack entnimmt **hinten** (`[-1]`/`pop()`), Queue entnimmt **vorne** (`pop(0)`/`[0]`). Alles andere ist identisch!
 
 ---
 
-## CODE 6: Einfach verkettete Liste
-**Eselsbrücke:** *„Eine Schatzsuche: jeder Zettel (Node) zeigt zum nächsten. Laufen = `while current: current = current.next`."*
+## CODE 6: Einfach verkettete Liste *(Quelle: Skript 05, Original-Form)*
+**Eselsbrücke:** *„Schatzsuche: jeder Zettel (Node) zeigt zum nächsten. Laufen = `while current: current = current.next`."*
 
 ```python
 class Node:
@@ -246,14 +280,13 @@ class LinkedList:
         self.head = None              # Anfang der Liste (erst mal leer)
 
     def insert(self, data):           # am ENDE anfügen
-        neuer = Node(data)
-        if self.head is None:         # Liste leer -> neuer Knoten ist der Kopf
-            self.head = neuer
-            return
-        current = self.head
-        while current.next:           # bis zum LETZTEN Knoten laufen
-            current = current.next    #   (der hat next == None)
-        current.next = neuer          # anhängen
+        if not self.head:             # Liste leer -> neuer Knoten ist der Kopf
+            self.head = Node(data)
+        else:
+            current = self.head
+            while current.next:       # bis zum LETZTEN Knoten laufen
+                current = current.next
+            current.next = Node(data) # anhängen
 
     def print_list(self):
         current = self.head
@@ -268,7 +301,7 @@ class LinkedList:
             self.head = self.head.next
             return
         current = self.head
-        while current.next:
+        while current.next is not None:
             if current.next.data == data:
                 current.next = current.next.next   # Knoten überspringen
                 return
@@ -278,158 +311,194 @@ class LinkedList:
 
 ---
 
-## CODE 7: Binärer Suchbaum (insert + inorder + search)
+## CODE 7: Binärer Suchbaum *(Quelle: Skript 05, Original-Form; search aus Übungsblatt 6)*
 **Eselsbrücke:** *„Kleiner links, größer rechts. Platz frei? Einfügen! Sonst weiterfragen (Rekursion). Inorder = links-ich-rechts = sortiert."*
 
 ```python
 class Node:
-    def __init__(self, wert):
-        self.wert = wert
+    def __init__(self, data):
         self.left = None
         self.right = None
+        self.data = data
 
 
 class BinaryTree:
     def __init__(self):
         self.root = None
 
-    def insert(self, wert):
+    def insert(self, data):
         if self.root is None:
-            self.root = Node(wert)
+            self.root = Node(data)
         else:
-            self._insert(self.root, wert)
+            self._insert(data, self.root)
 
-    def _insert(self, node, wert):            # das rekursive Kernmuster
-        if wert < node.wert:                  # kleiner -> nach links
+    def _insert(self, data, node):            # Skript-Signatur: (data, node)!
+        if data < node.data:                  # kleiner -> nach links
             if node.left is None:             #   Platz frei? einfügen
-                node.left = Node(wert)
+                node.left = Node(data)
             else:                             #   sonst: dort weiterfragen
-                self._insert(node.left, wert)
+                self._insert(data, node.left)
         else:                                 # größer/gleich -> nach rechts
             if node.right is None:
-                node.right = Node(wert)
+                node.right = Node(data)
             else:
-                self._insert(node.right, wert)
+                self._insert(data, node.right)
 
-    def print_inorder(self):                  # gibt Werte SORTIERT aus
-        self._inorder(self.root)
+    def print_tree(self):                     # gibt Werte SORTIERT aus (In-order)
+        if self.root is not None:
+            self._print_tree(self.root)
 
-    def _inorder(self, node):
+    def _print_tree(self, node):
         if node is not None:
-            self._inorder(node.left)          # 1. links (alles Kleinere)
-            print(node.wert)                  # 2. ich selbst
-            self._inorder(node.right)         # 3. rechts (alles Größere)
+            self._print_tree(node.left)       # 1. links (alles Kleinere)
+            print(str(node.data))             # 2. ich selbst
+            self._print_tree(node.right)      # 3. rechts (alles Größere)
 
-    def search(self, wert):
-        return self._search(self.root, wert)
+    # search wie in Übungsblatt 6 (Bücherverwaltung) gefordert:
+    def search(self, data):
+        return self._search(data, self.root)
 
-    def _search(self, node, wert):
+    def _search(self, data, node):
         if node is None:                      # unten angekommen: nicht da
             return False
-        if wert == node.wert:
+        if data == node.data:
             return True
-        elif wert < node.wert:
-            return self._search(node.left, wert)
+        elif data < node.data:
+            return self._search(data, node.left)
         else:
-            return self._search(node.right, wert)
+            return self._search(data, node.right)
 ```
-**Typische Fehler:** In `_inorder` die Reihenfolge (links → print → rechts) vertauschen · `is None`-Prüfung vergessen (Absturz).
+**Typische Fehler:** In `_print_tree` die Reihenfolge (links → print → rechts) vertauschen · `is None`-Prüfung vergessen (Absturz) · Skript-Signatur ist `_insert(data, node)` – **data zuerst**.
 
 ---
 
-## CODE 8: Bubble, Selection, Insertion – EIN Skelett, 3 Varianten
+## CODE 8: Bubble, Selection, Insertion *(Quelle: Skript 06, Original-Form)*
 **Eselsbrücken:**
 - **Bubble:** *„Blubberblasen: Nachbarn vergleichen, Größere blubbern nach hinten."*
 - **Selection:** *„Casting-Show: such das Minimum, hol es nach vorne. Ein Tausch pro Runde."*
 - **Insertion:** *„Kartenspiel: nimm die nächste Karte, schiebe Größere nach rechts, steck sie rein."*
 
 ```python
-def bubble_sort(a):
-    n = len(a)
-    for i in range(n - 1):                    # n-1 Runden
-        for j in range(n - i - 1):            # hinten ist schon fertig (-i)
-            if a[j] > a[j + 1]:               # Nachbarn falsch herum?
-                a[j], a[j + 1] = a[j + 1], a[j]   # tauschen (steht auf Hilfsblatt!)
-    return a
+def bubble_sort(numbers):
+    n = len(numbers)
+    for i in range(n - 1):
+        list_sorted = True                    # Skript-Optimierung!
+        for j in range(0, n - i - 1):         # hinten ist schon fertig (-i)
+            if numbers[j] > numbers[j + 1]:   # Nachbarn falsch herum?
+                # Tausche die Positionen (Swap steht auf dem Hilfsblatt!)
+                numbers[j], numbers[j + 1] = numbers[j + 1], numbers[j]
+                list_sorted = False
+        if list_sorted:
+            # kein Vertauschen erforderlich gewesen -> fertig
+            return
 
 
-def selection_sort(a):
-    n = len(a)
+def selection_sort(numbers):
+    n = len(numbers)
     for i in range(n):
-        m = i                                 # Annahme: i ist das Minimum
-        for j in range(i + 1, n):             # im Rest nach Kleinerem suchen
-            if a[j] < a[m]:
-                m = j                         # neues Minimum gemerkt (Index!)
-        a[i], a[m] = a[m], a[i]               # EIN Tausch pro Runde
-    return a
+        # Finde das Minimum im unsortierten Teil der Liste
+        min_index = i
+        for j in range(i + 1, n):
+            if numbers[j] < numbers[min_index]:
+                min_index = j
+        # Tausche das Minimum mit dem aktuellen Element
+        numbers[i], numbers[min_index] = numbers[min_index], numbers[i]
 
 
-def insertion_sort(a):
-    n = len(a)
-    for i in range(1, n):                      # ab dem 2. Element
-        pivot = a[i]                           # die "neue Karte"
+def insertion_sort(numbers):
+    n = len(numbers)
+    for i in range(1, n):                     # ab dem 2. Element
+        pivot = numbers[i]                    # die "neue Karte"
         j = i - 1
-        while j >= 0 and a[j] > pivot:         # alle Größeren...
-            a[j + 1] = a[j]                    # ...nach rechts schieben
+        while j >= 0 and numbers[j] > pivot:  # alle Größeren...
+            numbers[j + 1] = numbers[j]       # ...nach rechts schieben
             j -= 1
-        a[j + 1] = pivot                       # Karte in die Lücke
-    return a
+        numbers[j + 1] = pivot                # Karte in die Lücke
 ```
+**Hinweis:** Die Skript-Versionen sortieren **in-place** (kein `return numbers` nötig – die Liste ist danach sortiert).
 
-**🔑 DER Klausur-Trick – nur die Vergleichszeile ändern:**
-| Aufgabe | Vergleich |
+**🔑 DER Klausur-Trick – nur die Vergleichszeile ändern** (so in den Altklausuren angewandt):
+| Aufgabe (Klausur) | Vergleich |
 |---|---|
-| Zahlen aufsteigend | `a[j] > a[j+1]` |
-| **Strings nach Länge** (SS25/WS2526-Typ!) | `len(a[j]) > len(a[j+1])` |
-| Dicts nach Feld | `a[j]["gehalt"] > a[j+1]["gehalt"]` |
-| 2 Kriterien (Länge, dann ABC) | `(len(a[j]), a[j]) > (len(a[j+1]), a[j+1])` |
-| absteigend | `>` durch `<` ersetzen |
+| Zahlen aufsteigend (Skript) | `numbers[j] > numbers[j + 1]` |
+| **Strings nach Länge** (SS25 heapsort) | `len(liste[links]) > len(liste[groesster])` |
+| Zeichen eines Strings (WS2324 insertionsort) | vorher `zeichen = list(input_text)`, am Ende `"".join(zeichen)` |
+| Dokumente/Dicts nach Schlüssel (WS2425) | Schlüssel `(len(inhalt), titel)` bilden, Tupel vergleichen |
+| **Länge, dann alphabetisch** (WS2526 merge) | `(len(left[i]), left[i]) <= (len(right[j]), right[j])` |
 
 ---
 
 # TAG 2 – Divide & Conquer + Generalprobe
 
-## CODE 9: Quicksort & Mergesort
+## CODE 9: Quicksort & Mergesort *(Quelle: Skript 06 + SS23/WS2526-Klausuren, Original-Form)*
 **Eselsbrücken:**
 - **Quicksort:** *„Pivot wählen, Rest in kleiner/größer teilen, beide Hälften wieder quicksorten, zusammenkleben."*
-- **Mergesort:** *„Halbieren bis einzeln, dann sortiert zusammenreißverschlussen."*
+- **Mergesort:** *„Halbieren bis einzeln, dann sortiert zusammenführen (Reißverschluss)."*
 
 ```python
-def quicksort(a):
-    if len(a) <= 1:                            # Basisfall: nichts zu tun
-        return a
-    pivot = a[0]
-    kleiner  = [x for x in a[1:] if x <= pivot]    # <= behält Duplikate!
-    groesser = [x for x in a[1:] if x > pivot]
+# Quicksort in der SS23-Klausur-Form (mit <= für Duplikate):
+def quicksort(numbers):
+    # Basisfall: 0 oder 1 Element ist bereits sortiert
+    if len(numbers) <= 1:
+        return numbers
+
+    # Pivot = erstes Element; '<=' behält Duplikate (sonst gehen sie verloren!)
+    pivot = numbers[0]
+    kleiner = [x for x in numbers[1:] if x <= pivot]
+    groesser = [x for x in numbers[1:] if x > pivot]
+
+    # Rekursiv sortieren und zusammensetzen
     return quicksort(kleiner) + [pivot] + quicksort(groesser)
-
-
-def merge_sort(a):
-    if len(a) <= 1:                            # Basisfall
-        return a
-    mitte = len(a) // 2
-    links = merge_sort(a[:mitte])              # linke Hälfte sortieren
-    rechts = merge_sort(a[mitte:])             # rechte Hälfte sortieren
-    return merge(links, rechts)                # zusammenführen
-
-
-def merge(l, r):
-    ergebnis = []
-    i = j = 0
-    while i < len(l) and j < len(r):           # Reißverschluss:
-        if l[i] <= r[j]:                       #   das Kleinere zuerst
-            ergebnis.append(l[i]); i += 1
-        else:
-            ergebnis.append(r[j]); j += 1
-    ergebnis.extend(l[i:])                     # Reste anhängen
-    ergebnis.extend(r[j:])
-    return ergebnis
 ```
-**Typische Fehler:** Basisfall vergessen (Endlos-Rekursion!) · bei quicksort `a[1:]` vergessen (Pivot doppelt) · nur `<` statt `<=` (Duplikate verschwinden).
+
+```python
+# Mergesort in der Skript-Form (Skript 06):
+def merge_sort(numbers):
+    if len(numbers) <= 1:
+        return numbers
+
+    # Teile die Liste in zwei Hälften
+    mid = len(numbers) // 2
+    left_half = numbers[:mid]
+    right_half = numbers[mid:]
+
+    # Wende Mergesort rekursiv an
+    left_half = merge_sort(left_half)
+    right_half = merge_sort(right_half)
+
+    # Führe die sortierten Hälften zusammen
+    return merge(left_half, right_half)
+
+
+def merge(left, right):
+    merged = []
+    left_index = 0
+    right_index = 0
+
+    # Füge die Elemente in der richtigen Reihenfolge zusammen
+    while left_index < len(left) and right_index < len(right):
+        if left[left_index] < right[right_index]:
+            merged.append(left[left_index])
+            left_index += 1
+        else:
+            merged.append(right[right_index])
+            right_index += 1
+
+    # Füge die restlichen Elemente hinzu
+    merged.extend(left[left_index:])
+    merged.extend(right[right_index:])
+
+    return merged
+```
+**WS2526-Klausur-Variante** (Strings: erst Länge, bei Gleichstand alphabetisch) – nur die Vergleichszeile in `merge`:
+```python
+        if (len(left[left_index]), left[left_index]) <= (len(right[right_index]), right[right_index]):
+```
+**Typische Fehler:** Basisfall vergessen (Endlos-Rekursion!) · bei quicksort `numbers[1:]` vergessen (Pivot doppelt) · nur `<` statt `<=` (Duplikate verschwinden).
 
 **Komplexität (2 Zeilen merken):**
 - Bubble/Selection/Insertion: **O(n²)** — Quick/Merge/Heap: **O(n·log n)**
-- Ausnahmen: Bubble/Insertion best case **O(n)**; Quicksort worst case **O(n²)** (bei sortierter Liste + erstem Element als Pivot); Selection immer O(n²).
+- Ausnahmen: Bubble/Insertion best case **O(n)**; Quicksort worst case **O(n²)**; Selection immer O(n²).
 
 ---
 
@@ -446,17 +515,17 @@ def merge(l, r):
 **Tag 1:**
 - [ ] Datei lesen (`with open`, `strip`) & schreiben (`\n`!)
 - [ ] getopt-Gerüst komplett aus dem Kopf (parsen → zuordnen → prüfen)
-- [ ] Logdatei: `split(";")` → dict zählen → `max(d, key=d.get)`
+- [ ] Logdatei: `split(";")` → dict zählen (`if x in d: ... else: ...`) → `max(d, key=d.get)`
 - [ ] pytest-Gerüst + Testregeln (Grenzwert! leer! 0/1/mehrfach!)
-- [ ] Stack (`pop()`) vs. Queue (`pop(0)`) — der EINE Unterschied
-- [ ] Liste: Durchlauf-Muster + insert + delete (Kopf-Sonderfall!)
-- [ ] BST: `_insert` + `_inorder` (links-ich-rechts) + `_search`
-- [ ] Bubble + Selection + Insertion + „nur Vergleichszeile ändern"
+- [ ] Stack (hinten: `[-1]`/`del`) vs. Queue (vorne: `pop(0)`) — der EINE Unterschied
+- [ ] Liste: Durchlauf-Muster + insert (`if not self.head`) + delete (Kopf-Sonderfall!)
+- [ ] BST: `_insert(data, node)` + `_print_tree` (links-ich-rechts) + `_search`
+- [ ] Bubble (mit `list_sorted`) + Selection (`min_index`) + Insertion (`pivot`)
 
 **Tag 2:**
-- [ ] Quicksort (`<=`!) + Mergesort/merge
-- [ ] Sortieren nach `len()` und mit Tupel-Vergleich
+- [ ] Quicksort (`<=` für Duplikate!) + merge_sort/merge (Skript-Namen!)
+- [ ] Vergleichszeile umbauen: nach `len()` / Tupel `(len(s), s)`
 - [ ] Probeklausur unter Realbedingungen bestanden
 - [ ] Theorie 1× durchgelesen (`1_Theorie_SoftwareEngineering.md`)
 
-**Notfall-Minimum** (wenn die Zeit knapp wird, DAS zuerst): getopt-Gerüst + Logdatei-Auswertung + ein Baum (`_insert`/`_inorder`) + ein Sortierverfahren nach Länge + pytest. Das ist das SS25/WS2526-Muster = wahrscheinlichste Klausur.
+**Notfall-Minimum** (wenn die Zeit knapp wird, DAS zuerst): getopt-Gerüst + Logdatei-Auswertung + BST (`_insert`/`_print_tree`) + ein Sortierverfahren nach Länge + pytest. Das ist das SS25/WS2526-Muster = wahrscheinlichste Klausur.
