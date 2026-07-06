@@ -19,6 +19,7 @@ Zentrale Übersicht über alle Lernmaterialien. **Wichtigstes zuerst:** in der K
 3. **`3_Sortierverfahren_Traces.md`** – alle 6 Sortierverfahren Schritt für Schritt durchgerechnet.
 4. **`4_Fokusthemen_Bubble_Selection_Queue.md`** – die wahrscheinlichsten „neuen" Aufgaben (Lückenanalyse).
 5. **`5_Skripte_ausfuehrlich.md`** – die ausführliche Gesamt-Zusammenfassung der Skripte.
+6. **`6_Klausur_Grundgeruest_Codes.md`** – ⭐ Vergleich aller Klausuren: die 4 Code-Blöcke, die IMMER kommen, als Skelette + Übungen (nur Codes).
 
 ## 🎯 Empfohlener Lernpfad (Schritt für Schritt)
 
