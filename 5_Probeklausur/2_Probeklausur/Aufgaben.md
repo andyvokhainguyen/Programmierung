@@ -5,7 +5,7 @@ Bearbeitungszeit: ca. 90 Minuten · Erreichbare Punkte: **90**
 Hilfsmittel: nur Python-Syntax-Blatt (keine fertigen Implementierungen).
 
 > Zweite Übungsklausur – bewusst mit den **anderen** wahrscheinlichen Varianten: **getopt** statt argparse, **verkettete Liste** statt Queue, **Selection-Sort** statt Bubble, und Theoriethemen, die in Altklausuren **noch nie** gefragt wurden.
-> Versuche es zuerst selbst. Danach: Lösung in `Uebungsklausur_2_Loesung.md` oder sag **„Lösung 2"**.
+> Versuche es zuerst selbst. Danach: Lösung in `Loesung.md` oder sag **„Lösung 2"**.
 
 ---
 
@@ -115,4 +115,4 @@ woerter = ["Hallo", "Python", "Wirtschaftsinformatiker", "Aufgabe", "Sortieren"]
 
 ---
 
-*Viel Erfolg!* — Lösung: `Uebungsklausur_2_Loesung.md` oder sag **„Lösung 2"**.
+*Viel Erfolg!* — Lösung: `Loesung.md` oder sag **„Lösung 2"**.

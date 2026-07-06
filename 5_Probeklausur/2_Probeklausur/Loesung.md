@@ -1,6 +1,6 @@
 # Lösungsschlüssel – Übungsklausur 2 (SS26)
 
-Gesamt: **90 Punkte**. Lösungen zu [Uebungsklausur_2.md](Uebungsklausur_2.md).
+Gesamt: **90 Punkte**. Lösungen zu [Aufgaben.md](Aufgaben.md).
 
 ---
 

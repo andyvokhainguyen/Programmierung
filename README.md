@@ -11,7 +11,7 @@ Zentrale Übersicht über alle Lernmaterialien. **Wichtigstes zuerst:** in der K
 | **`2_Zusammenfassungen/`** | Meine Lern-Zusammenfassungen – das **Kernmaterial** zum Auswendiglernen. |
 | **`3_Altklausuren/`** | Die 6 Original-Altklausuren (SS23–WS2526) mit vollständigen Musterlösungen (`prog_*/src` + `test`). |
 | **`4_Uebungsblaetter_Loesungen/`** | Meine Lösungen zu den Übungsblättern 1–7 + der Wiederholungsaufgaben. |
-| **`5_Probeklausur/`** | Eine selbst erstellte Übungsklausur mit Lösungsschlüssel. |
+| **`5_Probeklausur/`** | Selbst erstellte Übungsklausuren, je Klausur ein Unterordner (`1_Probeklausur/`, `2_Probeklausur/`) mit `Aufgaben.md` + `Loesung.md`. |
 
 ### `2_Zusammenfassungen/` im Detail
 1. **`1_Theorie_SoftwareEngineering.md`** – alle Theoriethemen im Altklausur-Frage-Stil (+ noch nie gefragte Themen).
@@ -30,7 +30,7 @@ Zentrale Übersicht über alle Lernmaterialien. **Wichtigstes zuerst:** in der K
 4. **Testen (Äquivalenzklassen + pytest)** → `2_Code_Uebersicht.md` + `4_Uebungsblaetter_Loesungen/Blatt_02_Testen.md`
 5. **Kommandozeile + Datei-IO (argparse/getopt)** → `Blatt_03…` + `Blatt_04…`
 6. **Theorie wiederholen** → `1_Theorie_SoftwareEngineering.md`
-7. **Testlauf:** `5_Probeklausur/Uebungsklausur.md` selbst lösen, dann mit der Lösung vergleichen.
+7. **Testlauf:** `5_Probeklausur/1_Probeklausur/Aufgaben.md` (und danach `2_Probeklausur/`) selbst lösen, dann mit `Loesung.md` vergleichen.
 
 ## 🔥 Wahrscheinliche Schwerpunkte (Lückenanalyse)
 Diese Themen kamen in **keiner** Altklausur dran, werden aber aktuell geübt → gut vorbereiten:
