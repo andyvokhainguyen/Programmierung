@@ -8,7 +8,8 @@ Beispielaufruf:
     python3 aufgabe03.py -i log.txt -o ergebnis.txt -b level
 """
 
-import argparse
+import sys
+import getopt
 from collections import Counter
 
 
@@ -53,34 +54,49 @@ def schreibe_ergebnis(pfad, befehl, zaehler):
             datei.write(f"{schluessel}: {anzahl}\n")
 
 
-def erstelle_parser():
-    parser = argparse.ArgumentParser(
-        description="Analyse-Tool fuer Logdateien (Format: "
-                     "YYYY-MM-DD HH:MM:SS;LEVEL;USER;ACTION)."
-    )
-    parser.add_argument(
-        "--input", "-i", required=True,
-        help="Pfad zur Eingabedatei (Textdatei im Log-Format)"
-    )
-    parser.add_argument(
-        "--output", "-o", required=True,
-        help="Name der Ausgabedatei, in die das Ergebnis geschrieben wird"
-    )
-    parser.add_argument(
-        "--befehl", "-b", required=True,
-        choices=["actions", "user", "level"],
-        help="Auszufuehrender Befehl: 'actions', 'user' oder 'level'"
-    )
-    return parser
+def main(argv):
+    inputfile = ""
+    outputfile = ""
+    befehl = ""
 
+    aufruf = "aufgabe03.py -i <inputfile> -o <outputfile> -b <actions|user|level>"
 
-def main():
-    parser = erstelle_parser()
-    args = parser.parse_args()
+    # Argumente mit getopt einlesen:
+    #   kurze Flags mit ':' erwarten ein Argument (i:o:b:), -h ohne Argument.
+    try:
+        opts, args = getopt.getopt(
+            argv, "i:o:b:h",
+            ["input=", "output=", "befehl=", "help"]
+        )
+    except getopt.GetoptError:
+        print(aufruf)
+        sys.exit(2)
 
-    zaehler = werte_logdatei_aus(args.input, args.befehl)
-    schreibe_ergebnis(args.output, args.befehl, zaehler)
+    for opt, arg in opts:
+        if opt in ("-h", "--help"):
+            print(aufruf)
+            sys.exit()
+        elif opt in ("-i", "--input"):
+            inputfile = arg
+        elif opt in ("-o", "--output"):
+            outputfile = arg
+        elif opt in ("-b", "--befehl"):
+            befehl = arg
+
+    # Pflichtargumente pruefen (getopt kennt kein 'required')
+    if inputfile == "" or outputfile == "" or befehl == "":
+        print("Fehler: -i, -o und -b sind erforderlich.")
+        print(aufruf)
+        sys.exit(2)
+
+    # gueltige Befehle pruefen (getopt kennt kein 'choices')
+    if befehl not in ("actions", "user", "level"):
+        print("Fehler: -b muss 'actions', 'user' oder 'level' sein.")
+        sys.exit(2)
+
+    zaehler = werte_logdatei_aus(inputfile, befehl)
+    schreibe_ergebnis(outputfile, befehl, zaehler)
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
