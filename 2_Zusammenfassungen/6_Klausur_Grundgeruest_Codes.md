@@ -37,6 +37,18 @@ def test_beschreibung():
 - **Black-Box (Äquivalenzklassen):** je if/elif/else-Kategorie eine Klasse + **Grenzwerte**; bei Listen: leer / 1 Element / mehrere / mit-ohne Duplikate.
 - **White-Box (Pfade):** **Verzweigung** → beide Zweige; **Schleife** → 0/1/mehrfach; **Rekursion** → Basisfall/1×/mehrfach.
 
+### Assertions (defensive Programmierung, WS2526-Typ)
+```python
+def funktion(werte, limit):
+    assert type(werte) == list                              # Typ prüfen
+    assert isinstance(limit, int), "limit muss int sein"    # mit Fehlermeldung
+    assert all(isinstance(v, (int, float)) for v in werte)  # alle Elemente numerisch
+    ...
+# Verletzte Assertion -> AssertionError. In pytest so testen:
+#   with pytest.raises(AssertionError):
+#       funktion("kein_list", 10)
+```
+
 ### Übung
 ```python
 # Gegeben:
@@ -244,6 +256,114 @@ class BinaryTree:
 ```
 > SS25 (ternärer Baum) und WS2526 (Trie) sind **Varianten** desselben rekursiven Einfüge-/Durchlauf-Musters – nur mit mehr Kindern (links/mitte/rechts bzw. dict `kinder`).
 
+### Die 4 Klausur-Varianten (Kurz-Skelette)
+
+**Trie (WS2526)** – Kinder als `dict`, Wortende-Markierung:
+```python
+class Node:
+    def __init__(self):
+        self.kinder = {}            # dict[str, Node]
+        self.ist_wortende = False
+
+class Trie:
+    def __init__(self):
+        self.wurzel = Node()
+    def einfuegen(self, wort):
+        akt = self.wurzel
+        for ch in wort:
+            if ch not in akt.kinder:
+                akt.kinder[ch] = Node()
+            akt = akt.kinder[ch]
+        akt.ist_wortende = True
+    def enthaelt(self, wort):
+        akt = self.wurzel
+        for ch in wort:
+            if ch not in akt.kinder:
+                return False
+            akt = akt.kinder[ch]
+        return akt.ist_wortende
+```
+
+**Ternärer Suchbaum (SS25)** – Einordnung nach Wortlänge (kürzer/gleich/länger):
+```python
+class Node:
+    def __init__(self, wort):
+        self.wort = wort
+        self.links = self.mitte = self.rechts = None
+
+class TernaererSuchbaum:
+    def __init__(self):
+        self.wurzel = None
+    def einfuegen(self, wort):
+        if self.wurzel is None:
+            self.wurzel = Node(wort)
+        else:
+            self._einfuegen(self.wurzel, wort)
+    def _einfuegen(self, k, wort):
+        if len(wort) < len(k.wort):
+            if k.links is None: k.links = Node(wort)
+            else: self._einfuegen(k.links, wort)
+        elif len(wort) == len(k.wort):
+            if k.mitte is None: k.mitte = Node(wort)
+            else: self._einfuegen(k.mitte, wort)
+        else:
+            if k.rechts is None: k.rechts = Node(wort)
+            else: self._einfuegen(k.rechts, wort)
+    # Inorder-Ausgabe: links -> mitte -> Knoten -> rechts
+```
+
+**Zirkuläre verkettete Liste (WS2425)** – letzter Knoten zeigt auf `head`:
+```python
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class CircularLinkedList:
+    def __init__(self):
+        self.head = None
+    def insert(self, data):
+        neu = Node(data)
+        if self.head is None:
+            self.head = neu
+            neu.next = self.head          # zeigt auf sich selbst
+        else:
+            cur = self.head
+            while cur.next != self.head:  # bis zum letzten Knoten
+                cur = cur.next
+            cur.next = neu
+            neu.next = self.head          # Kreis schließen
+    def display(self):
+        if self.head is None: return
+        cur = self.head
+        while True:
+            print(cur.data)
+            cur = cur.next
+            if cur == self.head: break    # Abbruch bei Rückkehr zum Start
+```
+
+**Doppelt verkettete Liste + insertAfterElement (SS23)** – zusätzlich `prev`:
+```python
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+        self.prev = None                  # Rückwärts-Verweis
+# insert(): wie einfach verkettet, zusätzlich  neu.prev = cur
+def insertAfterElement(self, ziel, data): # neues Element NACH Knoten 'ziel'
+    cur = self.head
+    while cur:
+        if cur.data == ziel:
+            neu = Node(data)
+            neu.prev = cur
+            neu.next = cur.next
+            if cur.next:
+                cur.next.prev = neu
+            cur.next = neu
+            return
+        cur = cur.next
+```
+
 ### Übung
 ```
 Implementiere die Methode search(wert) für den BinaryTree oben,
@@ -325,6 +445,39 @@ def merge(l, r):
     return erg
 ```
 
+### Heapsort (SS25) – Max-Heap
+```python
+def heap_sort(a):
+    n = len(a)
+    for i in range(n // 2 - 1, -1, -1):    # 1) Max-Heap aufbauen
+        heapify(a, n, i)
+    for i in range(n - 1, 0, -1):          # 2) Wurzel ans Ende, Heap verkleinern
+        a[i], a[0] = a[0], a[i]
+        heapify(a, i, 0)
+    return a
+
+def heapify(a, n, i):
+    largest = i
+    left, right = 2 * i + 1, 2 * i + 2
+    if left < n and a[left] > a[largest]:      # <-- Vergleich (bei Länge: len(...))
+        largest = left
+    if right < n and a[right] > a[largest]:    # <-- Vergleich
+        largest = right
+    if largest != i:
+        a[i], a[largest] = a[largest], a[i]
+        heapify(a, n, largest)
+```
+
+### Komplexität (auswendig)
+| Verfahren | best | mittel | schlecht |
+|---|---|---|---|
+| Bubble | O(n) | O(n²) | O(n²) |
+| Selection | O(n²) | O(n²) | O(n²) |
+| Insertion | O(n) | O(n²) | O(n²) |
+| Quick | O(n·log n) | O(n·log n) | O(n²) |
+| Merge | O(n·log n) | O(n·log n) | O(n·log n) |
+| Heap | O(n·log n) | O(n·log n) | O(n·log n) |
+
 ### Übung (SS25/WS2526-Typ)
 ```
 Sortiere ["Hallo","AI","Python","Zoo"] aufsteigend nach Länge mit merge_sort.
@@ -345,12 +498,14 @@ Für „bei gleicher Länge alphabetisch": `if (len(l[i]), l[i]) < (len(r[j]), r
 # Deine Auswendig-Checkliste (nur Codes)
 
 - [ ] pytest-Gerüst (`from src import ...`, `assert funktion(x) == y`) + Regeln für Äquivalenzklassen/Pfade
+- [ ] Assertions (`assert isinstance(...)`) + `with pytest.raises(AssertionError)`
 - [ ] Datei lesen/schreiben (`with open(...) as f`)
 - [ ] getopt-Gerüst **und** argparse-Gerüst (Pflichtargumente + Befehl)
 - [ ] Logdatei-Auswertung (`split(";")` + zählen + `max(..., key=...)`)
 - [ ] verketteter Durchlauf (`while current: ... current = current.next`)
 - [ ] Stack (`append`/`pop`) & Queue (`append`/`pop(0)`)
 - [ ] BST: `_insert` (rekursiv) + `_inorder` + `_search`
+- [ ] DS-Varianten: Trie (dict-Kinder), ternärer Baum, zirkuläre & doppelt verkettete Liste
 - [ ] bubble / selection / insertion (Skelett + „nur Vergleichszeile ändern")
-- [ ] quicksort + merge_sort/merge
+- [ ] quicksort + merge_sort/merge + **heap_sort/heapify**
 - [ ] Sortieren **nach Länge** und **mit 2 Kriterien** (Tupel-Vergleich)
