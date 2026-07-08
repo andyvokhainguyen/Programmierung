@@ -118,107 +118,33 @@ if __name__ == "__main__":
     main(sys.argv[1:])
 ```
 
-### argparse (ausführlich)
-
-**Grundgerüst mit Erklärung jeder Zeile:**
+### argparse
 ```python
 import argparse
 
-def main():
-    # 1) Parser anlegen (description erscheint bei -h)
-    parser = argparse.ArgumentParser(description="Was das Programm tut.")
-
-    # 2) Argumente definieren (Langform, Kurzform, Optionen)
-    parser.add_argument("--input", "-i", required=True,
-                        help="Eingabedatei")                 # braucht einen Wert
-    parser.add_argument("--output", "-o", required=True,
-                        help="Ausgabedatei")
-    parser.add_argument("--befehl", "-b", required=True,
-                        choices=["level", "user", "action"], # nur diese Werte erlaubt
-                        help="Was gezählt wird")
-
-    # 3) Argumente einlesen
-    args = parser.parse_args()
-
-    # 4) Zugriff über args.<Langname ohne -->
-    print(args.input, args.output, args.befehl)
-
-if __name__ == "__main__":
-    main()
-```
-Aufruf: `python prog.py -i log.txt -o out.txt -b level` (oder mit Langform `--input log.txt …`).
-
-**Die wichtigsten `add_argument`-Optionen:**
-| Option | Bedeutung | Beispiel |
-|---|---|---|
-| `required=True` | Argument ist Pflicht (sonst Fehler + Abbruch) | `add_argument("--input","-i",required=True)` |
-| `type=int` / `type=float` | wandelt den String direkt in Zahl um | `add_argument("--shift","-s",type=int)` |
-| `choices=[...]` | erlaubt nur bestimmte Werte (prüft automatisch) | `choices=["add","sub"]` |
-| `action="store_true"` | **Schalter** ohne Wert → `True` wenn gesetzt, sonst `False` | `add_argument("-c",action="store_true")` |
-| `default=...` | Wert, falls Argument weggelassen wird | `default="action"` |
-| `help="..."` | Hilfetext (erscheint bei `-h`) | – |
-
-**Zugriff auf die Werte:** Nach `args = parser.parse_args()` liegt jeder Wert unter `args.<name>`, wobei `<name>` der **Langname ohne `--`** ist:
-- `--input`  → `args.input`
-- `--befehl` → `args.befehl`
-- `-c` (store_true) → `args.c` bzw. bei `--chiffrieren` → `args.chiffrieren`
-
-**Was argparse dir automatisch abnimmt** (im Gegensatz zu getopt):
-- prüft **Pflichtargumente** (`required=True`) und bricht mit Fehlermeldung ab,
-- prüft **gültige Werte** (`choices=[...]`),
-- wandelt **Typen** um (`type=int`),
-- erzeugt automatisch **`-h`/`--help`** mit Usage-Text.
-
-**Vollständiges Beispiel – Log-Tool (wie SS25/WS2526):**
-```python
-import argparse
-
-def zaehle(dateiname, befehl):
-    zaehler = {}
-    with open(dateiname, "r", encoding="utf-8") as datei:
-        for zeile in datei:
-            teile = zeile.strip().split(";")
-            if len(teile) != 4:
-                continue
-            _zeit, level, user, action = teile
-            if befehl == "level":
-                schluessel = level
-            elif befehl == "user":
-                schluessel = user
-            else:
-                schluessel = action
-            zaehler[schluessel] = zaehler.get(schluessel, 0) + 1
-    return zaehler
 
 def main():
-    parser = argparse.ArgumentParser(description="Log-Analyse-Tool.")
-    parser.add_argument("--input", "-i", required=True)
+    parser = argparse.ArgumentParser(description="...")
+    parser.add_argument("--input",  "-i", required=True)
     parser.add_argument("--output", "-o", required=True)
     parser.add_argument("--befehl", "-b", required=True,
                         choices=["level", "user", "action"])
     args = parser.parse_args()
 
-    zaehler = zaehle(args.input, args.befehl)
-    with open(args.output, "w", encoding="utf-8") as datei:
-        datei.write(f"Befehl: {args.befehl}\n")
-        for schluessel, anzahl in zaehler.items():
-            datei.write(f"{schluessel}: {anzahl}\n")
+    # Werte nutzen: args.input / args.output / args.befehl
+    with open(args.input, "r", encoding="utf-8") as ein:
+        for zeile in ein:
+            if zeile.strip() == "":
+                continue
+            # ... je nach args.befehl verarbeiten ...
+
+    with open(args.output, "w", encoding="utf-8") as aus:
+        aus.write(f"Befehl: {args.befehl}\n")
+
 
 if __name__ == "__main__":
     main()
 ```
-
-**Flags, die sich ausschließen (z. B. -c / -d) OHNE `mutually_exclusive_group`:**
-```python
-parser.add_argument("--chiffrieren", "-c", action="store_true")
-parser.add_argument("--dechiffrieren", "-d", action="store_true")
-args = parser.parse_args()
-
-if args.chiffrieren == args.dechiffrieren:     # keins ODER beide -> ungültig
-    parser.error("Bitte genau eine Option angeben: -c ODER -d.")
-```
-
-> ⚠️ **Klausur:** Auf dem Hilfsmittelblatt (Prog_25) steht **nur getopt**, nicht argparse. getopt ist die sichere Wahl; argparse nur, wenn die Aufgabe die Wahl ausdrücklich freistellt und du die Syntax auswendig kannst.
 
 ### Logdatei auswerten (SS25/WS2526-Muster)
 ```python
