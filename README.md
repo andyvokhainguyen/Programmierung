@@ -14,11 +14,13 @@ Zentrale Übersicht über alle Lernmaterialien. **Wichtigstes zuerst:** in der K
 | **`5_Probeklausur/`** | Selbst erstellte Übungsklausuren, je Klausur ein Unterordner (`1_Probeklausur/`, `2_Probeklausur/`) mit `Aufgaben.md` + `Loesung.md`. |
 | **`6_Uebungsplatz/`** | 🛠️ Freier Bereich – hier eigene Dateien zum Üben anlegen (Blank-Page, eigene Lösungen, Notizen). |
 
-### `2_Zusammenfassungen/` im Detail (schlank gehalten – 4 Kerndateien)
+### `2_Zusammenfassungen/` im Detail
 1. **`1_Theorie_Fragen_und_Antworten.md`** – alle Theoriefragen aus den 6 Altklausuren + mögliche weitere, **mit kurzen vollständigen Antworten** (zum Selbsttesten).
 2. **`2_Lernplan_2Tage_MUSS_ICH_KOENNEN.md`** – 🎯 **HIER STARTEN (Klausur in 2 Tagen):** Tagesplan + die 9 Pflicht-Codes mit Eselsbrücken, Zeilen-Erklärungen und Blank-Page-Checkliste.
 3. **`3_Alle_Codes_zum_Abtippen.md`** – 📋 alle relevanten Codes der 4 Themen **kompakt auf einen Blick** – zum Abtippen und Blank-Page-Üben.
 4. **`4_Sortierverfahren_Traces.md`** – alle 6 Sortierverfahren Schritt für Schritt durchgerechnet (`[55,7,78,12,42]`).
+5. **`5_Lueckenanalyse.md`** – 🔍 Vergleich aller 6 Altklausuren: was kam dran, was **noch nie** → woraus sich die wahrscheinlichen Schwerpunkte ableiten.
+6. **`6_Fokusthemen_Bubble_Selection_Queue.md`** – die Codes zu den wahrscheinlichen Lücken-Themen (**Bubble-Sort, Selection-Sort, Queue**) zum Auswendiglernen.
 
 ## 🎯 Empfohlener Lernpfad (Schritt für Schritt)
 
