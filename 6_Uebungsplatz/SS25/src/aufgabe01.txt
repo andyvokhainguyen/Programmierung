@@ -1,0 +1,24 @@
+"""
+Aufgabe 1 - Klausur Programmierung
+
+Author:
+Vorname Nachname
+
+Matrikelnummer:
+999.999
+"""
+Programmieren = reines Schreiben von Quellcode für eine konkrete, kleine Aufgabe (Fokus: Algorithmus, Syntax, ein laufffähiges Programm 
+- oft eine Person)
+Softwaretechnik =  "zielorientierte Bereitstellung und systematische Verwendung von Prinzipien, Methoden und Werkzeugen für die
+arbeitsteilige, ingenieursmäßige Entwicklung umfangreicher Software-Systeme"
+
+Softwaretechnik Merkmale
+Systematisches Vorgehen: Phasenmodelle (Wasserfall, V-Modell, Scrum) statt Ad-hoc-Coding
+Komplexität: Strukturierung, Modularisierung, Abstraktion im Team
+Ganzer Lebenszyklus: inkl. Betrieb/Wartung (~80% der Kosten), nicht nur "Code läuft"
+Qualitätssicherung: systematisches Testen, Reviews, Dokumentation
+
+b) Scrum
+Product Owner
+Scrum Master
+Entwicklungsteam

@@ -15,6 +15,3 @@ __pycache__/
 
 # temporäre/extrahierte Dateien
 *.tmp
-
-# Persoenlicher Uebungsordner - nur lokal/OneDrive, nicht auf GitHub
-6_Uebungsplatz/
